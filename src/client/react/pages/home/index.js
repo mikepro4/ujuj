@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
-
+const REACT_VERSION = React.version;
 
 class HomePage extends Component {
 
@@ -12,6 +12,7 @@ class HomePage extends Component {
      		<div>
 				  This is home. Updated
 				  <Link to="/about"> Go to about > </Link>
+				  React version: {REACT_VERSION}
 			</div>
 		);
 	}
