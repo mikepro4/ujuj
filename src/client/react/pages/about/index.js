@@ -23,7 +23,7 @@ class About extends Component {
           <div className="of-grid-row">
             <div className="of-grid-gutter-4 of-grid-5">
 						<Link to="/">Go to home.</Link>
-							This is about.
+							This is about. Updated.
             </div>
           </div>
         </div>
