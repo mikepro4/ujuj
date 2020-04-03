@@ -6,6 +6,8 @@ const AssetsPlugin = require("assets-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const assets = require("./webpack-assets.json");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
 
 const assetsPluginInstance = new AssetsPlugin({
 	includeManifest: "manifest",
@@ -53,9 +55,19 @@ if (process.env.NODE_ENV === "production") {
 					NODE_ENV: JSON.stringify(process.env.NODE_ENV)
 				}
 			}),
-			new webpack.optimize.UglifyJsPlugin({
-				compress: {
-					warnings: false
+			new UglifyJsPlugin({
+				test: /\.js($|\?)/i,
+				sourceMap: true,
+				uglifyOptions: {
+					mangle: {
+					keep_fnames: true,
+					},
+					compress: {
+					warnings: false,
+					},
+					output: {
+					beautify: false,
+					}
 				}
 			})
 		]
