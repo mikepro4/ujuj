@@ -7,6 +7,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const assets = require("./webpack-assets.json");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const webpackNodeExternals = require("webpack-node-externals");
 
 
 const assetsPluginInstance = new AssetsPlugin({
@@ -23,7 +24,8 @@ const VENDOR_LIBRARIES = [
 	"redux",
 	"react-redux",
 	"redux-thunk",
-	"react-helmet"
+	"react-helmet",
+	"three"
 ];
 
 const config = {
@@ -33,7 +35,7 @@ const config = {
 	},
 	output: {
 		path: path.resolve(__dirname, "public"),
-		filename: "[name].[hash:8].js"
+		filename: "[name].[hash:8].js",
 	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({

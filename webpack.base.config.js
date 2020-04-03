@@ -27,3 +27,5 @@ module.exports = {
 		]
 	}
 };
+
+// exclude: new RegExp(`node_modules/(?!(${transpileDependencies.join('|')})/).*`),
