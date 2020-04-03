@@ -79,7 +79,7 @@
 		"react-addons-css-transition-group": "^15.6.2",
 		"react-dnd": "^2.5.4",
 		"react-dnd-html5-backend": "^2.5.4",
-		"react-dom": "^16.2.0",
+		"react-dom": "^16.13.1",
 		"react-dropzone": "^4.2.8",
 		"react-helmet": "^5.2.0",
 		"react-keydown": "^1.9.6",
@@ -90,6 +90,7 @@
 		"react-router-config": "^5.1.1",
 		"react-router-dom": "^5.1.2",
 		"react-select": "^1.2.1",
+		"react-three-fiber": "^4.0.25",
 		"react-virtualized-select": "^3.1.1",
 		"redux": "^3.7.2",
 		"redux-devtools-extension": "^2.13.2",
@@ -100,6 +101,7 @@
 		"sendgrid": "^5.2.3",
 		"serialize-javascript": "^3.0.0",
 		"style-loader": "^0.19.1",
+		"three": "^0.115.0",
 		"url-loader": "^0.6.2",
 		"webpack-cli": "^2.1.3"
 	}
