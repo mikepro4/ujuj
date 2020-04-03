@@ -10,7 +10,7 @@ class HomePage extends Component {
 
 		return (
      		<div>
-				  This is home.
+				  This is home. Updated
 				  <Link to="/about"> Go to about > </Link>
 			</div>
 		);
