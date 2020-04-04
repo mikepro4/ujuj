@@ -1,4 +1,4 @@
-import { Mesh, OrthographicCamera, PlaneBufferGeometry, Scene, ShaderMaterial, UniformsUtils, Vector2 } from 'three'
+import { Mesh, OrthographicCamera,PerspectiveCamera,  PlaneBufferGeometry, Scene, ShaderMaterial, UniformsUtils, Vector2 } from 'three'
 import { Pass } from '../../../../three/examples/jsm/postprocessing/Pass'
 
 var WaterShader = {
@@ -11,35 +11,39 @@ var WaterShader = {
   },
 
   vertexShader: `varying vec2 vUv;
-    void main(){  
-      vUv = uv; 
-      vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-      gl_Position = projectionMatrix * modelViewPosition;
+    void main() {
+      vUv = uv;
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0 );
+      gl_Position = projectionMatrix * mvPosition;
     }`,
 
-  fragmentShader: `uniform int byp; //should we apply the glitch ?
+  fragmentShader: `
     uniform float time;
-    uniform float factor;
     uniform vec2 resolution;
-    uniform sampler2D texture;
-    
-    varying vec2 vUv;
-    
-    void main() {  
-      if (byp<1) {
-        vec2 uv1 = vUv;
-        vec2 uv = gl_FragCoord.xy/resolution.xy;
-        float frequency = 6.0;
-        float amplitude = 0.015 * factor;
-        float x = uv1.y * frequency + time * .7; 
-        float y = uv1.x * frequency + time * .3;
-        uv1.x += cos(x+y) * amplitude * cos(y);
-        uv1.y += sin(x-y) * amplitude * cos(y);
-        vec4 rgba = texture2D(texture, uv1);
-        gl_FragColor = rgba;
-      } else {
-        gl_FragColor = texture2D(texture, vUv);
+
+    #define t time
+    mat2 m(float a){float c=cos(a), s=sin(a);return mat2(c,-s,s,c);}
+    float map(vec3 p){
+        p.xz*= m(10.5);p.xy*= m(0.3) ;
+        vec3 q = p*3.+t;
+        return  p.x*p.y * length(p+vec3(sin(.1)))*log(length(p)) + sin(q.x+sin(q.z+sin(q.y)))*0.01 - 1.  ;
+    }
+
+    void main(){  
+      vec2 p = gl_FragCoord.xy/resolution.y - vec2(1.4,.1) ;
+        // p*=.7;
+        p.y*=.9;
+        vec3 cl = vec3(0.025);
+        float d = 5.5;
+        for(int i=0; i<=5; i++) {
+        vec3 p = vec3(1.,0.0,-7.) + normalize(vec3(p, 2.0))*d ;
+        float rz = map(p);
+        float f =  clamp((rz - map(p+.1))*0.5*cos(time*.1)*p.x, -.1, 1. );
+        vec3 l = vec3(.6,0.1,.2) - vec3(2., 1.5, 2.)*f;
+            cl = cl*l + (1.-smoothstep(0., 2.5, rz))*.7*l;
+        d += min(rz, 1.0 );
       }
+        gl_FragColor = vec4(cl, 1.) * .4;
     }`
 }
 
@@ -49,13 +53,14 @@ var WaterPass = function(dt_size) {
   var shader = WaterShader
   this.uniforms = UniformsUtils.clone(shader.uniforms)
   if (dt_size === undefined) dt_size = 64
-  this.uniforms['resolution'].value = new Vector2(dt_size, dt_size)
+  this.uniforms['resolution'].value = new Vector2(window.innerWidth*1.2, window.innerHeight*1.2)
   this.material = new ShaderMaterial({
     uniforms: this.uniforms,
     vertexShader: shader.vertexShader,
     fragmentShader: shader.fragmentShader
   })
-  this.camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
+  this.camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000000 );
+  this.camera.position.z = 1;
   this.scene = new Scene()
   this.quad = new Mesh(new PlaneBufferGeometry(2, 2), null)
   this.quad.frustumCulled = false // Avoid getting clipped
