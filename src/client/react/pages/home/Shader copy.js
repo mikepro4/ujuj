@@ -24,29 +24,30 @@ var WaterShader = {
     #define t time
     mat2 m(float a){float c=cos(a), s=sin(a);return mat2(c,-s,s,c);}
     float map(vec3 p){
-      p.xz*= m(2.5);p.xy*= m(.3) ;
-      vec3 q = p*3.+t;
-      return  p.x*p.y * length(p+vec3(sin(.1)))*log(length(p)) + sin(q.x+sin(q.z+sin(q.y)))*0.04 + 0.2  ;
+        p.xz*= m(2.5);p.xy*= m(0.3) ;
+        vec3 q = p*3.0+t;
+        return  p.x*p.y * length(p+vec3(sin(.1)))*log(length(p)/2.) + sin(q.x+log(q.z+sin(q.y)))*0.08 - 1.  ;
     }
 
+    
 
     void main(){  
-      vec2 p = gl_FragCoord.xy/resolution.y/2.18 - vec2(0.55,-0.15) ;
-    //p*=.7;
-    //p.y*=.9;
-    vec3 cl = vec3(0.025);
-    float d = 5.5;
-    for(int i=0; i<=5; i++) {
-    vec3 p = vec3(1.,0.0,-7.) + normalize(vec3(p, 2.0))*d ;
-        float rz = map(p);
-    float f =  clamp((rz - map(p+.1))*0.5*cos(time*.1)*p.x, -.1, 1. );
-        vec3 l = vec3(.6,0.1,.2) - vec3(2., 1.5, 2.)*f;
-        cl = cl*l + (1.-smoothstep(0., 2.5, rz))*.7*l;
-    d += min(rz, 1.0 );
-  }
-    gl_FragColor = vec4(cl, 1.) * .4;
-}`
-  }
+      vec2 p = gl_FragCoord.xy/resolution.y - vec2(1.2,0.0) ;
+      //p*=.7;
+      //p.y*=.9;
+      vec3 cl = vec3(0.025);
+      float d = 5.5;
+      for(int i=0; i<=5; i++) {
+      vec3 p = vec3(2.,.1,-7.) + normalize(vec3(p, 2.0))*d ;
+          float rz = map(p);
+      float f =  clamp((rz - map(p+.1))*.5*cos(time*0.05)*p.x, -.1, 1. );
+          vec3 l = vec3(.6,0.1,.2) - vec3(2., 1.5, 2.)*f;
+          cl = cl*l + (1.-smoothstep(0., 2.5, rz))*.7*l;
+      d += min(rz, 1.0 );
+    }
+      gl_FragColor = vec4(cl, 1.) * .4;
+    }`
+}
 
 var WaterPass = function(dt_size) {
   Pass.call(this)
@@ -54,14 +55,7 @@ var WaterPass = function(dt_size) {
   var shader = WaterShader
   this.uniforms = UniformsUtils.clone(shader.uniforms)
   if (dt_size === undefined) dt_size = 64
-
-  let width
-  if (window.innerWidth <= 800) {
-    width = window.innerWidth/20
-  } else {
-    width = window.innerWidth
-  }
-  this.uniforms['resolution'].value = new Vector2(width, window.innerHeight*1)
+  this.uniforms['resolution'].value = new Vector2(window.innerWidth*1, window.innerHeight*1)
   this.material = new ShaderMaterial({
     uniforms: this.uniforms,
     vertexShader: shader.vertexShader,
@@ -74,7 +68,7 @@ var WaterPass = function(dt_size) {
   this.quad.frustumCulled = false // Avoid getting clipped
   this.scene.add(this.quad)
   this.factor = 0
-  this.time = 2275
+  this.time = 0
 }
 
 WaterPass.prototype = Object.assign(Object.create(Pass.prototype), {
