@@ -2,6 +2,20 @@ import React, { Component, useCallback, useEffect, useState, useRef, useMemo } f
 import { connect } from "react-redux";
 import classNames from "classnames";
 import * as Vibrant from 'node-vibrant'
+import ArrowBack from '../../components/icons/arrow_back';
+import Dots from '../../components/icons/dots';
+import Instagram from '../../components/icons/instagram';
+import AddUser from '../../components/icons/add_user';
+import UserFollowing from '../../components/icons/user_following';
+import TikTok from '../../components/icons/tiktok';
+import TickSmall from '../../components/icons/tick_small';
+import Laurel from '../../components/icons/laurel';
+import TabUserActive from '../../components/icons/tab_user_active';
+import TabUserInactive from '../../components/icons/tab_user_inactive';
+import TabGobletInactive from '../../components/icons/tab_goblet_inactive';
+import TabThunderInactive from '../../components/icons/tab_thunder_inactive';
+import TabFireInactive from '../../components/icons/tab_fire_inactive';
+import TabHomeInactive from '../../components/icons/tab_home_inactive';
 
 class Phone extends Component {
 
@@ -9,7 +23,11 @@ class Phone extends Component {
 		super(props)
 		this.state = {
             scroll: 0,
-            hue: null
+            hue: null,
+            topHeight: 150,
+            topFixed: false,
+            paddingTop: 0,
+            topOffset: 0
 		}
 		this.handleChange = this.handleChange.bind(this)
 	  }
@@ -19,9 +37,23 @@ class Phone extends Component {
     
     handleScroll = (event) => {
         let node = document.getElementById(this.props.type)
-        this.setState({
-            scroll: node.scrollTop
-          })
+   
+            let top = document.getElementById("top-"+this.props.type)
+            if(top.clientHeight-node.scrollTop < this.state.topHeight) {
+                this.setState({
+                    topFixed: true, 
+                    paddingTop: top.clientHeight, 
+                    scroll: node.scrollTop,
+                    topOffset: top.clientHeight-this.state.topHeight
+                })
+            } else {
+                this.setState({
+                    topFixed: false, 
+                    paddingTop: 0, 
+                    topOffset: 0,
+                    scroll: node.scrollTop
+                })
+            }
       }
     
     componentDidMount() {
@@ -91,15 +123,31 @@ class Phone extends Component {
         // this.setState({gradient: gradient})
         // let hue = (this.state.hue*100).toFixed(0) + "%";
         // let newHue = [this.state.hue, 0.57, 0.12]
-        let hue = {
-            h: this.state.hue*100,
-            s: 57,
-            l: 12
+        let saturation 
+        let selected 
+        let s
+        if (this.props.settings.palette) {
+            selected = this.props.settings.selected.replace(/\s/g, '');
+            s = this.props.settings.palette[selected].hsl[1] * 100
+            if(s < 57) {
+                saturation = s
+            }else {
+                saturation = 57
+            }
+           
+        } else {
+            saturation = 57
         }
+       
+        // let hue = {
+        //     h: this.state.hue*100,
+        //     s: saturation,
+        //     l: 12
+        // }
         // let rgb = Vibrant.Util.hslToRgb(hue)
         // let hex = Vibrant.Util.rgbToHex(rgb)
         let newHue = 360*this.state.hue
-        let hex = this.hslToHex(newHue, 57, 12)
+        let hex = this.hslToHex(newHue, saturation, 12)
 
         gradient = `linear-gradient(180deg, #000000 0%, ${ hex } 100%)`;
         return gradient
@@ -114,15 +162,40 @@ class Phone extends Component {
                 </div>
 
                 <div className="screen_container">
-                    <div className="screen_scollbale" id={this.props.type}> 
+                     <div className="screen_top"> <ArrowBack/> <Dots /> </div>
+
+                    <div className="screen_scollbale" 
+                        id={this.props.type}
+                        style={{paddingTop: this.state.paddingTop + "px"}}
+                    > 
                         <div 
-                            className="profile_top"
-                            style={{backgroundImage: this.getGradient()}}
+                            className={classNames({
+                                "fixed": this.state.topFixed
+                            }, "profile_top")}
+                            id={"top-"+this.props.type}
+                            style={{
+                                backgroundImage: this.getGradient(),
+                                top: -this.state.topOffset
+                            }}
                         ></div>
+                        <Instagram/>
+                        <AddUser/>
+                        <UserFollowing />
+                        <TikTok />
+                        <TickSmall />
+                        <Laurel/>
                         <div className="test"></div>
                     </div>
-                    <div className="screen_top"> </div>
-                    <div className="screen_bottom">{this.state.scroll}</div>
+                    <div className="screen_bottom">
+                        {this.state.scroll}
+
+                        <TabUserActive />
+                        <TabUserInactive />
+                        <TabGobletInactive />
+                        <TabThunderInactive />
+                        <TabFireInactive />
+                        <TabHomeInactive />
+                    </div>
                 </div>
             </div>
 		);
