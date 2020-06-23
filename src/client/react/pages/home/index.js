@@ -10,7 +10,23 @@ class HomePage extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-		  files: ['/photos/img1.png'],
+		  files: [
+			  '/photos/img1.png',
+			  '/photos/img2.png',
+			  '/photos/img3.png',
+			  '/photos/img4.png',
+			  '/photos/img5.png',
+			  '/photos/img6.png',
+			  '/photos/img7.png',
+			  '/photos/img8.png',
+			  '/photos/img9.png',
+			  '/photos/img10.png',
+			  '/photos/img11.png',
+			  '/photos/img12.png',
+			  '/photos/img13.png',
+			  '/photos/img14.png',
+			  '/photos/img15.png',
+			],
 		  palette: null,
 		  selected: "Light Vibrant",
 		  avatar: '/photos/avatar.png',
@@ -88,14 +104,14 @@ class HomePage extends Component {
 	handleChange(event) {
 		let newFileList = []; 
 		let url = URL.createObjectURL(event.target.files[0]);
-		newFileList.push(url)
-		newFileList.push(this.state.files)
+		newFileList = [url, ...this.state.files]
 
 		this.setState({
 			files: newFileList
 		},() => {
 			Vibrant.from(this.state.files[0]).getPalette((err, palette) => {
 				console.log(palette) 
+				console.log(this.state)
 				this.setState({palette: palette})
 			})
 		})
@@ -107,8 +123,13 @@ class HomePage extends Component {
 		})
 	}
 
+	shuffle(array) {
+		array.sort(() =>Math.random() - 0.5);
+	}
+
 	componentDidMount() {
-		Vibrant.from(this.state.files[0]).getPalette((err, palette) => {
+		let files = this.state.files.sort(() => Math.random() - 0.5)
+		Vibrant.from(files[0]).getPalette((err, palette) => {
 			console.log(palette) 
 			this.setState({palette: palette})
 		})

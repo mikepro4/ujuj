@@ -284,7 +284,16 @@ class Phone extends Component {
                             </div>
                             
                         </div>
-                        <Laurel/>
+                        <div className="img_grid">
+                            {this.props.settings.files.map((file, i)=> {
+                                return (
+                                    <div className="img_wrapper" key={i}>
+                                        <img src={file} className="image"/>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        
                         <div className="test"></div>
                     </div>
                     <div className="screen_bottom">

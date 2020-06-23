@@ -138,3 +138,21 @@
     }
   }
 }
+
+.img_grid {
+  display: block;
+  // width: calc(100% + "10px");
+
+  .img_wrapper {
+    width: calc(100% /  3);;
+    display: inline-block;
+    overflow: hidden;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+
+    img {
+      width: 100%;
+    }
+  }
+}
