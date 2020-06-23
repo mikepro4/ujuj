@@ -89,9 +89,16 @@
   }
 
   .content {
-    display: flex;
     flex-grow: 1;
     flex-shrink: 1;
     height: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    
+    .row {
+      display: flex;
+      justify-content: center;
+    }
   }
 }

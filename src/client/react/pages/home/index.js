@@ -112,11 +112,15 @@ class HomePage extends Component {
 
 				<div className="content">
 
-					<Phone 
-						settings={this.state} 
-						type="not_following"
-						title="Not following a user"
-					/>
+					<div className="row">
+
+						<Phone 
+							settings={this.state} 
+							type="not_following"
+							title="Not following a user"
+						/>
+
+					</div>
 
 				</div>
 			</div>
