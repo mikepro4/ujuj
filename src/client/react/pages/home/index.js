@@ -38,6 +38,7 @@ class HomePage extends Component {
 		  username: "mikhail",
 		  bioText: "I design apps and make Techno music",
 		  url: "youtube.com/dcdnt",
+		  activeTab: 1
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleAvatarChange = this.handleAvatarChange.bind(this)
@@ -181,6 +182,12 @@ class HomePage extends Component {
 			</div>
 		)
 	}
+
+	changeTab(tab) {
+		this.setState({
+			activeTab: tab
+		})
+	}
 	  
 
 	render() {
@@ -297,6 +304,8 @@ class HomePage extends Component {
 							name={this.state.name}
 							url={this.state.url}
 							bioText={this.state.bioText}
+							activeTab={this.state.activeTab}
+							handleTabChange={(tab) => this.changeTab(tab)}
 						/>
 
 					</div>

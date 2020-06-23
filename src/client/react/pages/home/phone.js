@@ -293,15 +293,30 @@ class Phone extends Component {
                             </div>
 
                             <div className="tab_container">
-                                <div className="tab active">
+                                <div 
+                                    className={
+                                        classNames({"active": this.props.activeTab == 1}
+                                    , "tab")}
+                                    onClick={() => this.props.handleTabChange(1)}
+                                >
                                     <div className="tab_label">Entries</div>
                                 </div>
 
-                                <div className="tab">
+                                <div  
+                                    className={
+                                        classNames({"active": this.props.activeTab == 2}
+                                    , "tab")}
+                                    onClick={() => this.props.handleTabChange(2)}
+                                >
                                     <div className="tab_label">Comps</div>
                                 </div>
 
-                                <div className="tab">
+                                <div  
+                                    className={
+                                        classNames({"active": this.props.activeTab == 3}
+                                    , "tab")}
+                                    onClick={() => this.props.handleTabChange(3)}
+                                >
                                     <div className="tab_label">Reposts</div>
                                 </div>
                             </div>
@@ -349,7 +364,7 @@ class Phone extends Component {
                         <TabFireInactive />
                         <TabThunderInactive />
                         <TabGobletInactive />
-                        <TabUserActive />
+                        <TabUserInactive />
                         <div className="iphone_bar"></div>
                     </div>
                 </div>
