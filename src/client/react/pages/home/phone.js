@@ -30,6 +30,25 @@ class Phone extends Component {
             topFixed: false,
             paddingTop: 0,
             topOffset: 0,
+            loaded: false,
+            stats: [
+                9,
+                23,
+                7,
+                18,
+                35,
+                72,
+                3,
+                4,
+                6,
+                10,
+                14,
+                67,
+                16,
+                23,
+                34,
+                45
+            ]
 		}
 		this.handleChange = this.handleChange.bind(this)
 	  }
@@ -68,6 +87,10 @@ class Phone extends Component {
                 this.setState({hue: hue})
             }
         }, 100)
+
+        this.setState({
+            loaded: true
+        })
         
     }
     componentDidUpdate(state, props) {
@@ -288,6 +311,30 @@ class Phone extends Component {
                             {this.props.settings.files.map((file, i)=> {
                                 return (
                                     <div className="img_wrapper" key={i}>
+                                        <div className="laurel_wrapper">
+                                            <div className="laurel_icon"><Laurel/></div>
+                                            <div className="laurel_number">
+
+                                            {(i == 2 || i == 6 ) && (
+                                                <span>1</span>
+                                            )}
+
+                                            {(i != 2 && i != 6 ) && (
+                                                <span>{this.state.stats[i]}</span>
+                                            )}
+                                            </div>
+                                        </div>
+                                        {i == 0 && (
+                                            <div className="img_label active_label">
+                                                ACTIVE
+                                            </div>
+                                        )}
+
+                                        {(i == 2 || i == 6 )&& (
+                                            <div className="img_label winner_label">
+                                                WINNER
+                                            </div>
+                                        )}
                                         <img src={file} className="image"/>
                                     </div>
                                 )
@@ -297,14 +344,13 @@ class Phone extends Component {
                         <div className="test"></div>
                     </div>
                     <div className="screen_bottom">
-                        {this.state.scroll}
 
-                        <TabUserActive />
-                        <TabUserInactive />
-                        <TabGobletInactive />
-                        <TabThunderInactive />
-                        <TabFireInactive />
                         <TabHomeInactive />
+                        <TabFireInactive />
+                        <TabThunderInactive />
+                        <TabGobletInactive />
+                        <TabUserActive />
+                        <div className="iphone_bar"></div>
                     </div>
                 </div>
             </div>

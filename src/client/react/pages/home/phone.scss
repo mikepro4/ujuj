@@ -22,7 +22,7 @@
         right: 0;
         left: 0;
         height: 90px;
-        z-index: 2;
+        z-index: 3;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
@@ -30,7 +30,7 @@
     }
 
     .screen_bottom {
-        display: block;
+        display: flex;
         position: absolute;
         bottom: 0;
         right: 0;
@@ -38,6 +38,19 @@
         height: 95px;
         z-index: 2;
         background: black;
+        justify-content: space-between;
+        padding: 22px 40px;
+
+        .iphone_bar {
+            width: 138px;
+            height: 6px;
+            background: white;
+            border-radius: 30px;
+            bottom: 15px;
+            left: 50%;
+            margin-left: -69px;
+            position: absolute;
+        }
     }
 
     .screen_name {
@@ -70,6 +83,7 @@
                 position: absolute;
                 left: 0;
                 right: 0; 
+                z-index: 2;
             }
         }
     }
@@ -357,3 +371,75 @@
         }
     }
 }
+
+.img_grid {
+    display: block;
+    position: relative;
+    z-index: 1;
+    // width: calc(100% + "10px");
+  
+    .img_wrapper {
+      width: calc(100% /  3);;
+      display: inline-block;
+      overflow: hidden;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      position: relative;
+  
+  
+    img {
+        width: 100%;
+    }
+    
+    .img_label {
+            background: black;
+            color: white;
+            font-size: 8px;
+            font-weight: 550;
+            padding: 4px 10px;
+            border-radius: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            letter-spacing: 0.4px;
+    
+            &.active_label {
+                background: #40DC9D
+            }
+
+            &.winner_label {
+                background: #FFB467
+            }
+        }
+    }
+
+    .laurel_wrapper {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 34px;
+        height: 34px;
+
+        .laurel_icon {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .laurel_number {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 2;
+            font-weight: 500;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.80);
+            font-size: 14px;
+        }
+    }
+  }
