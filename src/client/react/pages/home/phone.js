@@ -17,6 +17,8 @@ import TabThunderInactive from '../../components/icons/tab_thunder_inactive';
 import TabFireInactive from '../../components/icons/tab_fire_inactive';
 import TabHomeInactive from '../../components/icons/tab_home_inactive';
 
+import PhoneActions from './phone_actions';
+
 class Phone extends Component {
 
 	constructor(props){
@@ -24,7 +26,7 @@ class Phone extends Component {
 		this.state = {
             scroll: 0,
             hue: null,
-            topHeight: 150,
+            topHeight: 160,
             topFixed: false,
             paddingTop: 0,
             topOffset: 0
@@ -162,7 +164,11 @@ class Phone extends Component {
                 </div>
 
                 <div className="screen_container">
-                     <div className="screen_top"> <ArrowBack/> <Dots /> </div>
+                     <div className="screen_top"> 
+                        <ArrowBack/> 
+                            
+                        <span className="dots"><Dots /></span>
+                    </div>
 
                     <div className="screen_scollbale" 
                         id={this.props.type}
@@ -177,12 +183,52 @@ class Phone extends Component {
                                 backgroundImage: this.getGradient(),
                                 top: -this.state.topOffset
                             }}
-                        ></div>
+                        >
+                            <div 
+                                className="name"
+                                style={{opacity: 1}}
+                            >
+                                Mikhail Proniushkin
+                            </div>
+
+                            <div className="avatar">
+                                <img src={this.props.settings.avatar}/>
+                            </div>
+
+                            <div 
+                                className="username"
+                                style={{opacity: 1}}
+                            >
+                                <span className="name_container">@mikhail</span>
+                                <span className="tick_container"><TickSmall /></span>
+                            </div>
+
+                            <div 
+                                className="stats"
+                                style={{opacity: 1}}
+                            >
+                                <div className="stats_container">
+                                    <div className="stats_value">478</div>
+                                    <div className="stats_label">FOLLOWING</div>
+                                </div>
+
+                                <div className="stats_container">
+                                    <div className="stats_value">5.5K</div>
+                                    <div className="stats_label">FOLLOWERS</div>
+                                </div>
+
+                                <div className="stats_container">
+                                    <div className="stats_value">23</div>
+                                    <div className="stats_label">SUPERSTARS</div>
+                                </div>
+                            </div>
+
+                            <PhoneActions />
+                        </div>
                         <Instagram/>
                         <AddUser/>
                         <UserFollowing />
                         <TikTok />
-                        <TickSmall />
                         <Laurel/>
                         <div className="test"></div>
                     </div>

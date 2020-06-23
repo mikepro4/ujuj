@@ -12,9 +12,11 @@ class HomePage extends Component {
 		this.state = {
 		  files: ['/photos/img1.png'],
 		  palette: null,
-		  selected: "Light Vibrant"
+		  selected: "Light Vibrant",
+		  avatar: '/photos/avatar.png'
 		}
 		this.handleChange = this.handleChange.bind(this)
+		this.handleAvatarChange = this.handleAvatarChange.bind(this)
 	  }
 
 	handleChange(event) {
@@ -30,6 +32,12 @@ class HomePage extends Component {
 				console.log(palette) 
 				this.setState({palette: palette})
 			})
+		})
+	}
+
+	handleAvatarChange(event) {
+		this.setState({
+			avatar: URL.createObjectURL(event.target.files[0])
 		})
 	}
 
@@ -93,6 +101,11 @@ class HomePage extends Component {
 		return (
 			<div className="prototype_container">
 				<div className="sidebar">
+				<div className="sidebar_section">
+						<div className="siderbar_title">Select avatar:</div>
+						<input type="file" onChange={this.handleAvatarChange}/>
+						<img src={this.state.avatar} className="image-preview"/>
+					</div>
 					<div className="sidebar_section">
 						<div className="siderbar_title">Select image to add:</div>
 						<input type="file" onChange={this.handleChange}/>

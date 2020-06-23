@@ -65,6 +65,7 @@
 
         .profile_top {
             min-height: 530px;
+            padding-top: 62px;
 
             &.fixed {
                 position: absolute;
@@ -72,5 +73,182 @@
                 right: 0; 
             }
         }
+    }
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 200;
+    margin: 10px 0 0 0;
+    position: relative;
+    // top: 4px;
+    text-align: center;
+}
+
+.dots {
+    position: relative;
+    top: -5px;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+    margin: 25px auto 20px auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 150px;
+    
+  
+    img {
+      max-width: 100%
+    }
+}
+
+.username {
+    font-weight: 550;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+
+    .tick_container {
+        width: 13px;
+        height: 13px;
+        background: #0AD7ED;
+        position: relative;
+        display: inline-block;
+        border-radius: 20px;
+        top: 2px;
+        margin: 0 0 0 6px;
+
+        .svg-wrapper {
+            position: absolute;
+            top: 2.5px; left:3px;
+        }
+    }
+}
+
+.stats {
+    width: 240px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin: 20px auto 20px auto;
+
+    .stats_value {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .stats_label {
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.8px;
+        opacity: 0.5;
+        margin: 2px 0 0 0;
+    }
+}
+
+.actions_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.main_group {
+    width: 200px;
+    display: flex;
+    justify-content: flex-end;;
+}
+
+.btn_round {
+    width: 41px;
+    height: 41px;
+    background: rgba(white, 0.1);
+    border-radius: 50px;
+    position: relative;
+    margin: 0 5px;
+
+    .svg-wrapper {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+}
+
+.btn_challenge {
+    display: none;
+    height: 41px;
+    flex-grow: 1;
+    background: #491CFF;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px 0 0;
+    position: relative;
+    transition: all 0.15s;
+
+    .btn_label {
+        position: relative;
+        top: -3px;
+        font-size: 13px;
+        transition: all 0.15s;
+    }
+}
+
+.following_icon {
+    display: block;
+    position: absolute;
+    right: 10px;
+    scale: 0;
+    opacity: 0;
+    transition: all 0.15s;
+}
+
+.btn_follow {
+    height: 41px;
+    width: 100%;
+    background: rgba(white, 1);
+    border-radius: 50px;
+    color: #000;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px 0 0;
+    position: relative;
+    transition: all 0.15s;
+
+    .btn_label {
+        position: relative;
+        top: -3px;
+        font-size: 13px;
+        transition: all 0.15s;
+    }
+}
+
+.following {
+    .btn_challenge {
+        display: flex;
+        opacity: 1;
+        scale: 1
+    }
+
+    .btn_follow {
+        background: rgba(white, 0.1);
+        width: 41px;
+        margin: 0 5px 0 5px;
+    }
+
+    .follow_label {
+        opacity: 0;
+    }
+
+    .following_icon {
+        scale: 1;
+        opacity: 1;
     }
 }
