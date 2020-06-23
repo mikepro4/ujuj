@@ -1,83 +1,124 @@
-import * as THREE from 'three'
-
 import React, { Component, useCallback, useEffect, useState, useRef, useMemo } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-const REACT_VERSION = React.version;
-
-import { Canvas, extend, useFrame, useThree } from 'react-three-fiber';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-// import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
-import { EffectComposer } from "../../../../three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from '../../../../three/examples/jsm/postprocessing/RenderPass'
-import { ShaderPass } from '../../../../three/examples/jsm/postprocessing/ShaderPass.js'
-
-import { WaterPass } from './Shader'
-
-extend({ EffectComposer, WaterPass, ShaderPass, RenderPass })
-
-function Box(props) {
-	// This reference will give us direct access to the mesh
-	const mesh = useRef()
-	
-	// Set up state for the hovered and active state
-	const [hovered, setHover] = useState(false)
-	const [active, setActive] = useState(false)
-	
-	// Rotate mesh every frame, this is outside of React without overhead
-	useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01))
-	
-	return (
-	  <mesh
-		{...props}
-		ref={mesh}
-		scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-		onClick={e => setActive(!active)}
-		onPointerOver={e => setHover(true)}
-		onPointerOut={e => setHover(false)}>
-		<boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-		<meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} />
-	  </mesh>
-	)
-}
-
-
-function Effect() {
-	const composer = useRef()
-	const { scene, gl, size, camera } = useThree()
-	const aspect = useMemo(() => new THREE.Vector2(size.width, size.height), [size])
-	useEffect(() => void composer.current.setSize(size.width, size.height), [size])
-	useFrame(() => composer.current.render(), 1)
-	return (
-	  <effectComposer ref={composer} args={[gl]}>
-		  <renderPass attachArray="passes" scene={scene} camera={camera} />
-		  <waterPass attachArray="passes" factor={2} />
-	  </effectComposer>
-	)
-  }
-  
+import * as Vibrant from 'node-vibrant'
+import classNames from "classnames";
+import Phone from './phone'
 
 class HomePage extends Component {
+
+	constructor(props){
+		super(props)
+		this.state = {
+		  files: ['/photos/img1.png'],
+		  palette: null,
+		  selected: "Light Vibrant"
+		}
+		this.handleChange = this.handleChange.bind(this)
+	  }
+
+	handleChange(event) {
+		let newFileList = []; 
+		let url = URL.createObjectURL(event.target.files[0]);
+		newFileList.push(url)
+		newFileList.push(this.state.files)
+
+		this.setState({
+			files: newFileList
+		},() => {
+			Vibrant.from(this.state.files[0]).getPalette((err, palette) => {
+				console.log(palette) 
+				this.setState({palette: palette})
+			})
+		})
+	}
+
+	componentDidMount() {
+		Vibrant.from(this.state.files[0]).getPalette((err, palette) => {
+			console.log(palette) 
+			this.setState({palette: palette})
+		})
+	}
+
+	colorBlock(details, name) {
+		return (
+			<div 
+				className="color_block" 
+				className={classNames({"active": this.state.selected == name}, "color_block")}
+				onClick={() => this.setState({ selected: name})}
+			>
+				<div className="color_title">{name} {(name == "Light Vibrant") && " (best)"}</div>
+				<div style={{backgroundColor: details.hex }} className="color_display"></div>
+				<div className="color_hex">
+					<span className="value_container">
+						<span className="value_label">HEX:</span>
+						<span className="value">{details.hex}</span>
+					</span>
+				</div>
+				<div className="color_rgb">
+					<span className="value_container">
+						<span className="value_label">R:</span>
+						<span className="value">{details.rgb[0]}</span>
+					</span>
+					<span className="value_container">
+						<span className="value_label">G:</span>
+						<span className="value">{details.rgb[1]}</span>
+					</span>
+					<span className="value_container">
+						<span className="value_label">B:</span>
+						<span className="value">{details.rgb[2]}</span>
+					</span>
+				</div>
+				<div className="color_hsl">
+					<span className="value_container">
+						<span className="value_label">H:</span>
+						<span className="value">{details.hsl[0].toFixed(2)}</span>
+					</span>
+					<span className="value_container">
+						<span className="value_label">S:</span>
+						<span className="value">{details.hsl[1].toFixed(2)}</span>
+					</span>
+					<span className="value_container">
+						<span className="value_label">L:</span>
+						<span className="value">{details.hsl[2].toFixed(2)}</span>
+					</span>
+				</div>
+			</div>
+		)
+	}
+	  
 
 	render() {
 
 		return (
-     		<div>
-				  This is home. Updated
-				  <Link to="/about"> Go to about > </Link>
-				  React version: {REACT_VERSION}
-				  <Canvas>
-				  	<pointLight distance={60} intensity={2} color="white" />
-						<spotLight intensity={0.5} position={[0, 0, 70]} penumbra={1} color="lightblue" />
-						<mesh>
-						<planeBufferGeometry attach="geometry" args={[10000, 10000]} />
-						<meshPhongMaterial attach="material" color="#272727" depthTest={false} />
-						</mesh>
-					<Box position={[-1.2, 0, 0]} />
-					<Box position={[1.2, 0, 0]} />
-					<Effect />
+			<div className="prototype_container">
+				<div className="sidebar">
+					<div className="sidebar_section">
+						<div className="siderbar_title">Select image to add:</div>
+						<input type="file" onChange={this.handleChange}/>
+						<img src={this.state.files[0]} className="image-preview"/>
+					</div>
+					<div className="sidebar_section">
+						{this.state.palette && <div className="siderbar_title">Extracted colors:</div>}
+						{this.state.palette && this.colorBlock(this.state.palette.DarkMuted, "Dark Muted")}
+						{this.state.palette && this.colorBlock(this.state.palette.DarkVibrant, "Dark Vibrant")}
+						{this.state.palette && this.colorBlock(this.state.palette.LightMuted, "Light Muted")}
+						{this.state.palette && this.colorBlock(this.state.palette.LightVibrant, "Light Vibrant")}
+						{this.state.palette && this.colorBlock(this.state.palette.Muted, "Muted")}
+						{this.state.palette && this.colorBlock(this.state.palette.Vibrant, "Vibrant")}
+					</div>
+				</div>
+				
 
-				</Canvas>
+				<div className="content">
+
+					<Phone 
+						settings={this.state} 
+						type="not_following"
+						title="Not following a user"
+					/>
+
+				</div>
 			</div>
 		);
 	}
