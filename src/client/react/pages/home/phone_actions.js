@@ -11,8 +11,6 @@ class PhoneActions extends Component {
 		super(props)
 		this.state = {
             following: true,
-            instagram: false,
-            tiktok: false
 		}
 	  }
 
@@ -24,23 +22,25 @@ class PhoneActions extends Component {
                 <div 
                     className={classNames({
                         "following": this.state.following
-                    }, "main_group")}
-                    onClick={()=> this.setState({following: !this.state.following})}
+                    }, "main_group")} 
                 >
                     <div className="btn_challenge">
                         <span className="challenge_label btn_label">Challenge</span>
                     </div>
-                    <div className="btn_follow">
+                    <div 
+                        className="btn_follow"
+                        onClick={()=> this.setState({following: !this.state.following})}
+                    >
                         <span className="follow_label btn_label">Follow</span>
                         <span className="following_icon"><UserFollowing/></span>
                     </div>
                 </div>
 
-                {this.state.instagram && (
+                {this.props.instagram && (
                     <div className="btn_round"><Instagram /></div>
                 )}
 
-                {this.state.tiktok && (
+                {this.props.tiktok && (
                     <div className="btn_round"><TikTok /></div>
                 )}
             </div>

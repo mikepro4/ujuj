@@ -186,18 +186,21 @@ class Phone extends Component {
                         >
                             <div 
                                 className="name"
-                                style={{opacity: 1}}
+                                style={{opacity: 100 - this.state.scroll*2.5 + "%"}}
                             >
                                 Mikhail Proniushkin
                             </div>
 
-                            <div className="avatar">
+                            <div 
+                                className="avatar"
+                                style={{opacity: 100 - this.state.scroll/1.5 + "%"}}
+                            >
                                 <img src={this.props.settings.avatar}/>
                             </div>
 
                             <div 
                                 className="username"
-                                style={{opacity: 1}}
+                                style={{opacity: 100 - this.state.scroll/2.2 + "%"}}
                             >
                                 <span className="name_container">@mikhail</span>
                                 <span className="tick_container"><TickSmall /></span>
@@ -205,7 +208,7 @@ class Phone extends Component {
 
                             <div 
                                 className="stats"
-                                style={{opacity: 1}}
+                                style={{opacity: 100 - this.state.scroll/2.5 + "%"}}
                             >
                                 <div className="stats_container">
                                     <div className="stats_value">478</div>
@@ -222,13 +225,45 @@ class Phone extends Component {
                                     <div className="stats_label">SUPERSTARS</div>
                                 </div>
                             </div>
+                            <div 
+                                style={{opacity: 100 - this.state.scroll/2.8 + "%"}}
+                            >
+                                <PhoneActions 
+                                    instagram={this.props.instagram}
+                                    tiktok={this.props.tiktok}
+                                />
+                            </div>
+                            <div 
+                                style={{opacity: 100 - this.state.scroll/3.2 + "%"}}
+                            >
+                                {this.props.bio && (
+                                    <div className="profile_bio">
+                                        I’m designing apps and making techno music.
+                                    </div>
+                                )}
+                                
+                                {this.props.link && (
+                                    <div className="profile_link">
+                                        www.youtube.com/dcdnt
+                                    </div>
+                                )}
+                            </div>
 
-                            <PhoneActions />
+                            <div className="tab_container">
+                                <div className="tab active">
+                                    <div className="tab_label">Entries</div>
+                                </div>
+
+                                <div className="tab">
+                                    <div className="tab_label">Comps</div>
+                                </div>
+
+                                <div className="tab">
+                                    <div className="tab_label">Reposts</div>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <Instagram/>
-                        <AddUser/>
-                        <UserFollowing />
-                        <TikTok />
                         <Laurel/>
                         <div className="test"></div>
                     </div>

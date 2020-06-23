@@ -106,3 +106,19 @@
 .svg-wrapper {
   display: inline-block;
 }
+
+.file_uploaders {
+  display: flex;
+
+  .sidebar_section {
+    width: 240px
+  }
+}
+
+.checkbox_row {
+  display: block;
+  margin: 0 0 5px 0;
+  input {
+    margin: 0 5px 0 0;
+  }
+}

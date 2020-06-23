@@ -13,11 +13,43 @@ class HomePage extends Component {
 		  files: ['/photos/img1.png'],
 		  palette: null,
 		  selected: "Light Vibrant",
-		  avatar: '/photos/avatar.png'
+		  avatar: '/photos/avatar.png',
+		  link: true,
+		  instagram: true,
+		  tiktok: true,
+		  bio: true
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleAvatarChange = this.handleAvatarChange.bind(this)
-	  }
+		this.handleInstagramChange = this.handleInstagramChange.bind(this)
+		this.handleTikTokChange = this.handleTikTokChange.bind(this)
+		this.handleLinkChange = this.handleLinkChange.bind(this)
+		this.handleBioChange = this.handleBioChange.bind(this)
+	}
+
+	handleInstagramChange(event) {
+		this.setState({
+			instagram: !this.state.instagram
+		})
+	}
+
+	handleTikTokChange(event) {
+		this.setState({
+			tiktok: !this.state.tiktok
+		})
+	}
+
+	handleLinkChange(event) {
+		this.setState({
+			link: !this.state.link
+		})
+	}
+
+	handleBioChange(event) {
+		this.setState({
+			bio: !this.state.bio
+		})
+	}
 
 	handleChange(event) {
 		let newFileList = []; 
@@ -101,15 +133,17 @@ class HomePage extends Component {
 		return (
 			<div className="prototype_container">
 				<div className="sidebar">
-				<div className="sidebar_section">
-						<div className="siderbar_title">Select avatar:</div>
-						<input type="file" onChange={this.handleAvatarChange}/>
-						<img src={this.state.avatar} className="image-preview"/>
-					</div>
-					<div className="sidebar_section">
-						<div className="siderbar_title">Select image to add:</div>
-						<input type="file" onChange={this.handleChange}/>
-						<img src={this.state.files[0]} className="image-preview"/>
+					<div className="file_uploaders">
+						<div className="sidebar_section">
+							<div className="siderbar_title">Select avatar:</div>
+							<input type="file" onChange={this.handleAvatarChange}/>
+							<img src={this.state.avatar} className="image-preview"/>
+						</div>
+						<div className="sidebar_section">
+							<div className="siderbar_title">Select image to add:</div>
+							<input type="file" onChange={this.handleChange}/>
+							<img src={this.state.files[0]} className="image-preview"/>
+						</div>
 					</div>
 					<div className="sidebar_section">
 						{this.state.palette && <div className="siderbar_title">Extracted colors:</div>}
@@ -119,6 +153,38 @@ class HomePage extends Component {
 						{this.state.palette && this.colorBlock(this.state.palette.LightVibrant, "Light Vibrant")}
 						{this.state.palette && this.colorBlock(this.state.palette.Muted, "Muted")}
 						{this.state.palette && this.colorBlock(this.state.palette.Vibrant, "Vibrant")}
+					</div>
+
+					<div className="sidebar_section">
+						<div className="siderbar_title">Bio sections:</div>
+						<div className="checkbox_row">
+							<input 
+								type="checkbox" 
+								onChange={this.handleInstagramChange}
+								checked={this.state.instagram}
+							/>Instagram
+						</div>
+						<div className="checkbox_row">
+							<input 
+								type="checkbox" 
+								onChange={this.handleTikTokChange}
+								checked={this.state.tiktok}
+							/>Tiktok
+						</div>
+						<div className="checkbox_row">
+							<input 
+								type="checkbox" 
+								onChange={this.handleLinkChange}
+								checked={this.state.link}
+							/>Link
+						</div>
+						<div className="checkbox_row">
+							<input 
+								type="checkbox" 
+								onChange={this.handleBioChange}
+								checked={this.state.bio}
+							/>Bio
+						</div>
 					</div>
 				</div>
 				
@@ -131,6 +197,10 @@ class HomePage extends Component {
 							settings={this.state} 
 							type="not_following"
 							title="Not following a user"
+							link={this.state.link}
+							instagram={this.state.instagram}
+							tiktok={this.state.tiktok}
+							bio={this.state.bio}
 						/>
 
 					</div>
