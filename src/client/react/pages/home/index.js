@@ -17,7 +17,11 @@ class HomePage extends Component {
 		  link: true,
 		  instagram: true,
 		  tiktok: true,
-		  bio: true
+		  bio: true,
+		  name: "Mikhail Proniushkin",
+		  username: "mikhail",
+		  bioText: "I design apps and make Techno music",
+		  url: "youtube.com/dcdnt",
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleAvatarChange = this.handleAvatarChange.bind(this)
@@ -25,6 +29,36 @@ class HomePage extends Component {
 		this.handleTikTokChange = this.handleTikTokChange.bind(this)
 		this.handleLinkChange = this.handleLinkChange.bind(this)
 		this.handleBioChange = this.handleBioChange.bind(this)
+
+		this.handleNameChange = this.handleNameChange.bind(this)
+		this.handleUsernameChange = this.handleUsernameChange.bind(this)
+		this.handleBioTextChange = this.handleBioTextChange.bind(this)
+
+		this.handleUrlChange = this.handleUrlChange.bind(this)
+	}
+
+	handleUrlChange(event) {
+		this.setState({
+			url: event.target.value
+		})
+	}
+
+	handleBioTextChange(event) {
+		this.setState({
+			bioText: event.target.value
+		})
+	}
+
+	handleUsernameChange(event) {
+		this.setState({
+			username: event.target.value
+		})
+	}
+
+	handleNameChange(event) {
+		this.setState({
+			name: event.target.value
+		})
 	}
 
 	handleInstagramChange(event) {
@@ -133,6 +167,43 @@ class HomePage extends Component {
 		return (
 			<div className="prototype_container">
 				<div className="sidebar">
+					<div className="bio_inputs">
+						<div className="sidebar_section">
+							<div className="siderbar_title">Name:</div>
+							<input 
+								type="input" 
+								onChange={this.handleNameChange}
+								value={this.state.name}
+							/>
+						</div>
+
+						<div className="sidebar_section">
+							<div className="siderbar_title">Username:</div>
+							<input 
+								type="input" 
+								onChange={this.handleUsernameChange}
+								value={this.state.username}
+							/>
+						</div>
+
+						<div className="sidebar_section">
+							<div className="siderbar_title">Bio text:</div>
+							<input 
+								type="textarea" 
+								onChange={this.handleBioTextChange}
+								value={this.state.bioText}
+							/>
+						</div>
+
+						<div className="sidebar_section">
+							<div className="siderbar_title">Url:</div>
+							<input 
+								type="input" 
+								onChange={this.handleUrlChange}
+								value={this.state.url}
+							/>
+						</div>
+					</div>
 					<div className="file_uploaders">
 						<div className="sidebar_section">
 							<div className="siderbar_title">Select avatar:</div>
@@ -201,6 +272,10 @@ class HomePage extends Component {
 							instagram={this.state.instagram}
 							tiktok={this.state.tiktok}
 							bio={this.state.bio}
+							username={this.state.username}
+							name={this.state.name}
+							url={this.state.url}
+							bioText={this.state.bioText}
 						/>
 
 					</div>

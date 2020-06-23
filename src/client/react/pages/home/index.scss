@@ -68,11 +68,11 @@
     flex-shrink: 0;
     width: 540px;
     height: 100%;
+    overflow-y: scroll;
 
     .sidebar_section {
       display: block;
       padding: 20px 20px 40px 20px;
-      min-height: 100px;
 
       .siderbar_title {
         font-weight: 16px;
@@ -120,5 +120,21 @@
   margin: 0 0 5px 0;
   input {
     margin: 0 5px 0 0;
+  }
+}
+
+.bio_inputs {
+  display: block;
+
+  .sidebar_section {
+    width: 240px;
+    display: inline-block !important;
+
+    input {
+      width: 100%;
+      padding: 5px;
+      border-radius: 3px;
+      border: none;
+    }
   }
 }

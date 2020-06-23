@@ -75,6 +75,67 @@
     }
 }
 
+.tick_container {
+    width: 13px;
+    height: 13px;
+    background: #0AD7ED;
+    position: relative;
+    display: inline-block;
+    border-radius: 20px;
+    top: 2px;
+    margin: 0 0 0 6px;
+
+    .svg-wrapper {
+        position: absolute;
+        top: 2.5px; left:3px;
+    }
+}
+
+.small_user_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+    position: relative;
+    top: 30px;
+    opacity: 0;
+    transform: scale(0.9);
+
+    .small_avatar {
+        width: 25px;
+        height: 25px;
+        overflow: hidden;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: 5px;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .small_username {
+        font-size: 13px;
+        font-weight: 550;
+        margin: 0 0 0 7px;
+        position: relative;
+        top: 3px;
+    }
+
+    .tick_container {
+        top: 3px;
+    }
+
+    &.visible {
+        top: 0;
+        opacity: 1;
+        transform: scale(1.0);
+    }
+}
+
 .name {
     font-size: 16px;
     font-weight: 200;
@@ -105,27 +166,15 @@
     }
 }
 
+
+
 .username {
     font-weight: 550;
     font-size: 13px;
     display: flex;
     justify-content: center;
 
-    .tick_container {
-        width: 13px;
-        height: 13px;
-        background: #0AD7ED;
-        position: relative;
-        display: inline-block;
-        border-radius: 20px;
-        top: 2px;
-        margin: 0 0 0 6px;
-
-        .svg-wrapper {
-            position: absolute;
-            top: 2.5px; left:3px;
-        }
-    }
+    
 }
 
 .stats {
@@ -193,6 +242,7 @@
     position: relative;
     transition: all 0.15s;
     cursor: pointer;
+    opacity: 0;
 
     .btn_label {
         position: relative;

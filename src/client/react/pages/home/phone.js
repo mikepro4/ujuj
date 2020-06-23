@@ -29,7 +29,7 @@ class Phone extends Component {
             topHeight: 160,
             topFixed: false,
             paddingTop: 0,
-            topOffset: 0
+            topOffset: 0,
 		}
 		this.handleChange = this.handleChange.bind(this)
 	  }
@@ -166,7 +166,27 @@ class Phone extends Component {
                 <div className="screen_container">
                      <div className="screen_top"> 
                         <ArrowBack/> 
+                        <div 
+                            className={classNames({
+                                "visible": this.state.scroll > 222
+                            }, "small_user_info")}
+                        >
+                            <span 
+                                className="small_avatar"
+                            >
+                                <img src={this.props.settings.avatar}/>
+                            </span>  
+
+                            <span className="small_username">
+                                {this.props.username}
+                            </span>
                             
+                            <span 
+                                className="tick_container"
+                            ><TickSmall /></span>
+
+
+                        </div>
                         <span className="dots"><Dots /></span>
                     </div>
 
@@ -188,7 +208,7 @@ class Phone extends Component {
                                 className="name"
                                 style={{opacity: 100 - this.state.scroll*2.5 + "%"}}
                             >
-                                Mikhail Proniushkin
+                                {this.props.name}
                             </div>
 
                             <div 
@@ -202,7 +222,7 @@ class Phone extends Component {
                                 className="username"
                                 style={{opacity: 100 - this.state.scroll/2.2 + "%"}}
                             >
-                                <span className="name_container">@mikhail</span>
+                                <span className="name_container">@{this.props.username}</span>
                                 <span className="tick_container"><TickSmall /></span>
                             </div>
 
@@ -238,13 +258,13 @@ class Phone extends Component {
                             >
                                 {this.props.bio && (
                                     <div className="profile_bio">
-                                        I’m designing apps and making techno music.
+                                        {this.props.bioText}
                                     </div>
                                 )}
                                 
                                 {this.props.link && (
                                     <div className="profile_link">
-                                        www.youtube.com/dcdnt
+                                        {this.props.url}
                                     </div>
                                 )}
                             </div>
