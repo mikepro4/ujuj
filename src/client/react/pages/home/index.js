@@ -4,42 +4,44 @@ import { Link } from "react-router-dom";
 import * as Vibrant from 'node-vibrant'
 import classNames from "classnames";
 import Phone from './phone'
+import ArrowBack from '../../components/icons/arrow_back';
 
 class HomePage extends Component {
 
 	constructor(props){
 		super(props)
 		this.state = {
-		  files: [
-			  '/photos/img1.png',
-			  '/photos/img2.png',
-			  '/photos/img3.png',
-			  '/photos/img4.png',
-			  '/photos/img5.png',
-			  '/photos/img6.png',
-			  '/photos/img7.png',
-			  '/photos/img8.png',
-			  '/photos/img9.png',
-			  '/photos/img10.png',
-			  '/photos/img11.png',
-			  '/photos/img12.png',
-			  '/photos/img13.png',
-			  '/photos/img14.png',
-			  '/photos/img15.png',
-			],
-		  palette: null,
-		  selected: "Light Vibrant",
-		  avatar: '/photos/avatar.png',
-		  link: true,
-		  instagram: true,
-		  tiktok: true,
-		  bio: true,
-		  name: "Mikhail Proniushkin",
-		  username: "mikhail",
-		  bioText: "I design apps and make Techno music",
-		  url: "youtube.com/dcdnt",
-		  activeTab: 2,
-		  comps: [
+			mobileDrawer: false,
+			files: [
+				'/photos/img1.png',
+				'/photos/img2.png',
+				'/photos/img3.png',
+				'/photos/img4.png',
+				'/photos/img5.png',
+				'/photos/img6.png',
+				'/photos/img7.png',
+				'/photos/img8.png',
+				'/photos/img9.png',
+				'/photos/img10.png',
+				'/photos/img11.png',
+				'/photos/img12.png',
+				'/photos/img13.png',
+				'/photos/img14.png',
+				'/photos/img15.png',
+				],
+			palette: null,
+			selected: "Light Vibrant",
+			avatar: '/photos/avatar.png',
+			link: true,
+			instagram: true,
+			tiktok: true,
+			bio: true,
+			name: "Mikhail Proniushkin",
+			username: "mikhail",
+			bioText: "I design apps and make Techno music",
+			url: "youtube.com/dcdnt",
+			activeTab: 1,
+			comps: [
 			  {
 				  img: '/comps/comp1.png',
 				  firstLine: "Freestyle Fire",
@@ -139,9 +141,20 @@ class HomePage extends Component {
 
 	componentDidMount() {
 		let files = this.state.files.sort(() => Math.random() - 0.5)
+		// let files = this.state.files
 		Vibrant.from(files[0]).getPalette((err, palette) => {
 			console.log(palette) 
-			this.setState({palette: palette})
+			if(window.innerWidth < 400) {
+				this.setState({
+					palette: palette,
+					selected: "Dark Vibrant"
+				})
+			} else {
+				this.setState({
+					palette: palette
+				})
+			}
+			
 		})
 	}
 
@@ -197,13 +210,31 @@ class HomePage extends Component {
 			activeTab: tab
 		})
 	}
+
+	handleDrawerChange(drawer) {
+		this.setState({
+			mobileDrawer: drawer
+		})
+	}
 	  
 
 	render() {
 
 		return (
 			<div className="prototype_container">
-				<div className="sidebar">
+				<div 
+					className={classNames({
+						"mobile_visible": this.state.mobileDrawer
+					}, "sidebar")}
+				>
+					<div 
+						className="sidebar_section mobile_back"
+						onClick={() => this.handleDrawerChange(false)}
+					>
+						<div>
+							<ArrowBack/> back to profile
+						</div>
+					</div> 
 					<div className="bio_inputs">
 						<div className="sidebar_section">
 							<div className="siderbar_title">Name:</div>
@@ -316,6 +347,7 @@ class HomePage extends Component {
 							activeTab={this.state.activeTab}
 							handleTabChange={(tab) => this.changeTab(tab)}
 							comps={this.state.comps}
+							handleDrawerChange={(drawer) => this.handleDrawerChange(drawer)}
 						/>
 
 					</div>

@@ -70,6 +70,23 @@
     height: 100%;
     overflow-y: scroll;
 
+    @media only screen and (max-width: $mobile) {
+      display: none;
+      background: black;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom:0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    &.mobile_visible {
+      display: block !important;
+    }
+
+
     .sidebar_section {
       display: block;
       padding: 20px 20px 40px 20px;
@@ -84,6 +101,15 @@
         max-width: 50px;
         display: block;
         margin: 10px 0 0 0;
+      }
+
+      &.mobile_back {
+        display: none;
+
+        @media only screen and (max-width: $mobile) {
+          display: block;
+        }
+    
       }
     }
   }
@@ -109,6 +135,10 @@
 
 .file_uploaders {
   display: flex;
+
+  @media only screen and (max-width: $mobile) {
+    display: block;
+  }
 
   .sidebar_section {
     width: 240px

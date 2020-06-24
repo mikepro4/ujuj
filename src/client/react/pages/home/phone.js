@@ -63,7 +63,7 @@ class Phone extends Component {
         let node = document.getElementById(this.props.type)
    
             let top = document.getElementById("top-"+this.props.type)
-            if(top.clientHeight-node.scrollTop < this.state.topHeight) {
+            if(top.clientHeight-node.scrollTop <= this.state.topHeight) {
                 this.setState({
                     topFixed: true, 
                     paddingTop: top.clientHeight, 
@@ -151,34 +151,39 @@ class Phone extends Component {
         // this.setState({gradient: gradient})
         // let hue = (this.state.hue*100).toFixed(0) + "%";
         // let newHue = [this.state.hue, 0.57, 0.12]
-        let saturation 
-        let selected 
-        let s
-        if (this.props.settings.palette) {
-            selected = this.props.settings.selected.replace(/\s/g, '');
-            s = this.props.settings.palette[selected].hsl[1] * 100
-            if(s < 57) {
-                saturation = s
-            }else {
+        if(this.state.hue) {
+            let saturation 
+            let selected 
+            let s
+            if (this.props.settings.palette) {
+                selected = this.props.settings.selected.replace(/\s/g, '');
+                s = this.props.settings.palette[selected].hsl[1] * 100
+                if(s < 57) {
+                    saturation = s
+                }else {
+                    saturation = 57
+                }
+               
+            } else {
                 saturation = 57
             }
            
+            // let hue = {
+            //     h: this.state.hue*100,
+            //     s: saturation,
+            //     l: 12
+            // }
+            // let rgb = Vibrant.Util.hslToRgb(hue)
+            // let hex = Vibrant.Util.rgbToHex(rgb)
+            let newHue = 360*this.state.hue
+            let hex = this.hslToHex(newHue, saturation, 12)
+    
+            gradient = `linear-gradient(180deg, #000000 0%, ${ hex } 100%)`;
+            return gradient
         } else {
-            saturation = 57
+            gradient = `linear-gradient(180deg, #000000 0%, #000000 100%)`;
         }
-       
-        // let hue = {
-        //     h: this.state.hue*100,
-        //     s: saturation,
-        //     l: 12
-        // }
-        // let rgb = Vibrant.Util.hslToRgb(hue)
-        // let hex = Vibrant.Util.rgbToHex(rgb)
-        let newHue = 360*this.state.hue
-        let hex = this.hslToHex(newHue, saturation, 12)
-
-        gradient = `linear-gradient(180deg, #000000 0%, ${ hex } 100%)`;
-        return gradient
+        
     }
 
     renderGrid() {
@@ -186,7 +191,10 @@ class Phone extends Component {
             <div className="img_grid">
                 {this.props.settings.files.map((file, i)=> {
                     return (
-                        <div className="img_wrapper" key={i}>
+                        <div 
+                            className="img_wrapper" 
+                            key={i}
+                        >
                             <div className="laurel_wrapper">
                                 <div className="laurel_icon"><Laurel/></div>
                                 <div className="laurel_number">
@@ -297,7 +305,10 @@ class Phone extends Component {
 
 
                         </div>
-                        <span className="dots"><Dots /></span>
+                        <span 
+                            className="dots"
+                            onClick={() => this.props.handleDrawerChange(true)}
+                        ><Dots /></span>
                     </div>
 
                     <div className="screen_scollbale" 

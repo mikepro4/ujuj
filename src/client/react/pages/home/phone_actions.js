@@ -10,7 +10,7 @@ class PhoneActions extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-            following: true,
+            following: false,
 		}
 	  }
 
