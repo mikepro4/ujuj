@@ -444,3 +444,44 @@
         }
     }
   }
+
+  .comp_wrapper {
+      display: flex;
+      border-bottom: 1px solid rgba(white, 0.1);
+
+      .comp_image_wrapper {
+          width: 90px;
+          flex-grow: 0;
+          flex-shrink: 0;
+          img {
+            max-width: 90px;
+          }
+      }
+
+      .comp_details {
+            padding: 20px;
+            position: relative;
+            flex-grow: 1;
+
+            .comp_firstLine {}
+
+            .comp_secondLine {}
+    
+            .scores_conatainer {
+                display: flex;
+        
+                .single_score {
+                    .score_laurel {}
+                    .score_rank {}
+                    .score_description {}
+                }
+            }
+
+            .comp_caret {
+                position: absolute;
+                right: 15px;
+                top: 50px;
+            }
+      }
+  }
+ 

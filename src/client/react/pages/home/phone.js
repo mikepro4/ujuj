@@ -17,6 +17,9 @@ import TabThunderInactive from '../../components/icons/tab_thunder_inactive';
 import TabFireInactive from '../../components/icons/tab_fire_inactive';
 import TabHomeInactive from '../../components/icons/tab_home_inactive';
 
+import LaurelSmall from '../../components/icons/laurel_small';
+import Caret from '../../components/icons/caret';
+
 import PhoneActions from './phone_actions';
 
 class Phone extends Component {
@@ -178,6 +181,90 @@ class Phone extends Component {
         return gradient
     }
 
+    renderGrid() {
+        return( 
+            <div className="img_grid">
+                {this.props.settings.files.map((file, i)=> {
+                    return (
+                        <div className="img_wrapper" key={i}>
+                            <div className="laurel_wrapper">
+                                <div className="laurel_icon"><Laurel/></div>
+                                <div className="laurel_number">
+
+                                {(i == 2 || i == 6 ) && (
+                                    <span>1</span>
+                                )}
+
+                                {(i != 2 && i != 6 ) && (
+                                    <span>{this.state.stats[i]}</span>
+                                )}
+                                </div>
+                            </div>
+                            {i == 0 && (
+                                <div className="img_label active_label">
+                                    ACTIVE
+                                </div>
+                            )}
+
+                            {(i == 2 || i == 6 )&& (
+                                <div className="img_label winner_label">
+                                    WINNER
+                                </div>
+                            )}
+                            <img src={file} className="image"/>
+                </div>
+            )
+        })}
+    </div>)
+    }
+
+    renderComps() {
+        console.log(this.props.comps)
+        return(
+            <div className="comps_grid">
+                {this.props.comps.map((comp, i) => {
+                    return(
+                        <div className="comp_wrapper">
+                            <div className="comp_image_wrapper">
+                                <img src={comp.img} className="comp_image"/>
+                            </div>
+                            <div className="comp_details">
+                                <div className="comp_firstLine">
+                                    {comp.firstLine} 
+                                </div>
+                                <div className="comp_secondLine">
+                                    {comp.secondLine} 
+                                </div>
+
+                                <div className="scores_conatainer">
+                                    <div className="single_score">
+                                        <span className="score_laurel_wrapper">
+                                            <span className="score_laurel"><LaurelSmall/> </span>
+                                            <span className="score_rank">{comp.score1}</span>
+                                        </span>
+                                        <span className="score_description">2 posts</span>
+                                    </div>
+
+                                    <div className="single_score">
+                                    <span className="score_laurel_wrapper">
+                                            <span className="score_laurel"><LaurelSmall/> </span>
+                                            <span className="score_rank">{comp.score1}</span>
+                                        </span>
+                                        <span className="score_description">3 superstars</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="comp_caret">
+                                    <Caret/>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
+
 	render() {
        
 		return (
@@ -322,39 +409,10 @@ class Phone extends Component {
                             </div>
                             
                         </div>
-                        <div className="img_grid">
-                            {this.props.settings.files.map((file, i)=> {
-                                return (
-                                    <div className="img_wrapper" key={i}>
-                                        <div className="laurel_wrapper">
-                                            <div className="laurel_icon"><Laurel/></div>
-                                            <div className="laurel_number">
 
-                                            {(i == 2 || i == 6 ) && (
-                                                <span>1</span>
-                                            )}
-
-                                            {(i != 2 && i != 6 ) && (
-                                                <span>{this.state.stats[i]}</span>
-                                            )}
-                                            </div>
-                                        </div>
-                                        {i == 0 && (
-                                            <div className="img_label active_label">
-                                                ACTIVE
-                                            </div>
-                                        )}
-
-                                        {(i == 2 || i == 6 )&& (
-                                            <div className="img_label winner_label">
-                                                WINNER
-                                            </div>
-                                        )}
-                                        <img src={file} className="image"/>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                        {this.props.activeTab == 1 && this.renderGrid()}
+                        {this.props.activeTab == 2 && this.renderComps()}
+                       
                         
                         <div className="test"></div>
                     </div>

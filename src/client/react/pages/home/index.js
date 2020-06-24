@@ -38,7 +38,16 @@ class HomePage extends Component {
 		  username: "mikhail",
 		  bioText: "I design apps and make Techno music",
 		  url: "youtube.com/dcdnt",
-		  activeTab: 1
+		  activeTab: 2,
+		  comps: [
+			  {
+				  img: '/comps/comp1.png',
+				  firstLine: "Freestyle Fire",
+				  secondLine: "Dance battle",
+				  score1: 7,
+				  score2: 12
+			  }
+			]
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleAvatarChange = this.handleAvatarChange.bind(this)
@@ -306,6 +315,7 @@ class HomePage extends Component {
 							bioText={this.state.bioText}
 							activeTab={this.state.activeTab}
 							handleTabChange={(tab) => this.changeTab(tab)}
+							comps={this.state.comps}
 						/>
 
 					</div>
