@@ -19,6 +19,8 @@ import TabHomeInactive from '../../components/icons/tab_home_inactive';
 
 import LaurelSmall from '../../components/icons/laurel_small';
 import Caret from '../../components/icons/caret';
+import Search from '../../components/icons/search';
+import TickBig from '../../components/icons/tick_big';
 
 import PhoneActions from './phone_actions';
 
@@ -51,7 +53,10 @@ class Phone extends Component {
                 23,
                 34,
                 45
-            ]
+            ],
+            chalengeDrawer: false,
+            chalengeCompSelected: null,
+            notificationOn: false
 		}
 		this.handleChange = this.handleChange.bind(this)
 	  }
@@ -311,6 +316,150 @@ class Phone extends Component {
         )
     }
 
+    renderChallengeDrawer() {
+        if(this.state.chalengeDrawer) {
+            return (<div>
+                <div 
+                    className="challenge_bg"
+                    onClick={() => {
+                        this.setState({
+                            chalengeDrawer: false,
+                            chalengeCompSelected: null
+                        })
+                    }}
+                ></div>
+
+                    <div className="challenge_drawer">
+                        <div className="challenge_title">
+                            SELECT COMP
+                        </div>
+
+                        <div className="search_wrapper">
+                            <div className="search_icon">
+                                <Search />
+                            </div>
+
+                            <div className="search_text">
+                                Search comps...
+                            </div>
+                        </div>
+
+                        <div className="comp_section">
+                            <div className="comp_section_title">
+                                MY ACTIVE COMPS
+                            </div>
+
+                            <div className="challenge_comp_wrapper">
+                                {this.renderChallengeComp(0)}
+                                {this.renderChallengeComp(1)}
+                            </div>
+
+                            <div className="comp_section_title">
+                                OTHER COMPS
+                            </div>
+
+                            <div className="challenge_comp_wrapper">
+                                {this.renderChallengeComp(2)}
+                                {this.renderChallengeComp(3)}
+                                {this.renderChallengeComp(4)}
+                                {this.renderChallengeComp(5)}
+                            </div>
+                        </div>
+
+                        <div className="chalenge_button_wrapper">
+
+                            <div 
+                                className={classNames({
+                                    "inactive": this.state.chalengeCompSelected == null
+                                }, "challenge_send")}
+                                onClick={() => {
+                                    this.setState({
+                                        chalengeDrawer: false,
+                                        chalengeCompSelected: null 
+                                    })
+
+                                    this.playNotification()
+                                }}
+                            >
+                                <span className="btn_label">Send challenge</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            )
+        } else {
+            return
+        }
+    }
+
+    renderChallengeComp(position) {
+        return(
+            <div 
+                className="single_challenge_comp"
+                onClick={()=> {
+                    if(position == this.state.chalengeCompSelected) {
+                        this.setState({
+                            chalengeCompSelected: null
+                        }) 
+                    } else {
+                        this.setState({
+                            chalengeCompSelected: position
+                        })
+                    }
+                }}
+            >
+                <div className="challenge_comp_img">
+                   <img src={this.props.comps[position].img} />
+                </div>
+                <div className="challenge_comp_details">
+                    <div className="challenge_firstLine">
+                        {this.props.comps[position].firstLine}
+                    </div>
+                    <div className="challenge_secondLine">
+                        {this.props.comps[position].secondLine}
+                    </div>
+                </div>
+                <div className="challenge_comp_tick_container">
+                    <div 
+                        className={classNames({
+                            "checked": position == this.state.chalengeCompSelected
+                        }, "challenge_comp_tick")}
+                    >
+                        <TickBig />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderNotification() {
+        return(
+            <div 
+                className="notification_contatiner"
+                className={classNames({
+                    "visible": this.state.notificationOn
+                }, "notification_contatiner")}
+            >
+                <span className="notification_label">Challenge sent</span>
+            </div>
+        )
+    }
+
+    playNotification() {
+        setTimeout(() => {
+            this.setState({
+                notificationOn: true
+            })
+        }, 100)
+
+        setTimeout(() => {
+            this.setState({
+                notificationOn: false
+            })
+        }, 2000)
+    }
+
 	render() {
        
 		return (
@@ -410,6 +559,11 @@ class Phone extends Component {
                                 <PhoneActions 
                                     instagram={this.props.instagram}
                                     tiktok={this.props.tiktok}
+                                    showChallengeDrawer={() => {
+                                        this.setState({
+                                            chalengeDrawer: true
+                                        })
+                                    }}
                                 />
                             </div>
                             <div 
@@ -475,6 +629,10 @@ class Phone extends Component {
                         <TabUserInactive />
                         <div className="iphone_bar"></div>
                     </div>
+                    
+                    {this.renderChallengeDrawer()}
+
+                    {this.renderNotification()}
                 </div>
             </div>
 		);

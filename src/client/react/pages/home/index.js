@@ -57,7 +57,7 @@ class HomePage extends Component {
 					score1: 2,
 					score2: 12,
 					count1: 2,
-					count2: 3
+					count2: 3,
 				},
 				{
 					img: '/comps/comp2.png',
@@ -66,7 +66,7 @@ class HomePage extends Component {
 					score1: 1,
 					score2: 7,
 					count1: 1,
-					count2: 0
+					count2: 0,
 				},
 				{
 					img: '/comps/comp3.png',
@@ -75,7 +75,7 @@ class HomePage extends Component {
 					score1: 4,
 					score2: 1,
 					count1: 1,
-					count2: 3
+					count2: 3,
 				},
 				{
 					img: '/comps/comp4.png',
@@ -84,7 +84,7 @@ class HomePage extends Component {
 					score1: 1,
 					score2: 10,
 					count1: 2,
-					count2: 5
+					count2: 5,
 				},
 				{
 					img: '/comps/comp5.png',
@@ -93,7 +93,7 @@ class HomePage extends Component {
 					score1: 3,
 					score2: 97,
 					count1: 1,
-					count2: 0
+					count2: 0,
 				},
 				{
 					img: '/comps/comp6.png',
@@ -102,7 +102,7 @@ class HomePage extends Component {
 					score1: 0,
 					score2: 7,
 					count1: 0,
-					count2: 2
+					count2: 2,
 				},
 				{
 					img: '/comps/comp7.png',
@@ -111,7 +111,7 @@ class HomePage extends Component {
 					score1: 1,
 					score2: 12,
 					count1: 1,
-					count2: 0
+					count2: 0,
 				},
 				{
 					img: '/comps/comp8.png',
@@ -120,7 +120,7 @@ class HomePage extends Component {
 					score1: 0,
 					score2: 7,
 					count1: 0,
-					count2: 1
+					count2: 1,
 				},
 				{
 					img: '/comps/comp9.png',
@@ -129,7 +129,7 @@ class HomePage extends Component {
 					score1: 45,
 					score2: 12,
 					count1: 1,
-					count2: 0
+					count2: 0,
 				},
 				{
 					img: '/comps/comp10.png',
@@ -452,7 +452,7 @@ class HomePage extends Component {
 						<Phone 
 							settings={this.state} 
 							type="not_following"
-							title="Not following a user"
+							title="Profile"
 							link={this.state.link}
 							instagram={this.state.instagram}
 							tiktok={this.state.tiktok}

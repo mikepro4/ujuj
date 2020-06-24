@@ -24,7 +24,10 @@ class PhoneActions extends Component {
                         "following": this.state.following
                     }, "main_group")} 
                 >
-                    <div className="btn_challenge">
+                    <div 
+                        className="btn_challenge"
+                        onClick={() => this.props.showChallengeDrawer()}
+                    >
                         <span className="challenge_label btn_label">Challenge</span>
                     </div>
                     <div 
