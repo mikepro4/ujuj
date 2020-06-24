@@ -68,11 +68,19 @@ class Phone extends Component {
         let node = document.getElementById(this.props.type)
    
             let top = document.getElementById("top-"+this.props.type)
+            let scrollValue
+
+            if(node.scrollTop > 0) {
+                scrollValue = node.scrollTop
+            } else {
+                scrollValue = 0
+            }
+
             if(top.clientHeight-node.scrollTop <= this.state.topHeight) {
                 this.setState({
                     topFixed: true, 
                     paddingTop: top.clientHeight, 
-                    scroll: node.scrollTop,
+                    scroll: scrollValue,
                     topOffset: top.clientHeight-this.state.topHeight
                 })
             } else {
@@ -80,7 +88,7 @@ class Phone extends Component {
                     topFixed: false, 
                     paddingTop: 0, 
                     topOffset: 0,
-                    scroll: node.scrollTop
+                    scroll: scrollValue
                 })
             }
       }
