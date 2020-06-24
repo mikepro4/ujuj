@@ -19,6 +19,7 @@
 
         @media only screen and (max-width: $mobile) {
             top:-45px;
+            height: 680px;
         }
     }
 
@@ -48,6 +49,10 @@
         justify-content: space-between;
         padding: 22px 40px;
 
+        @media only screen and (max-width: $mobile) {
+            display: none;
+        }
+
         .iphone_bar {
             width: 138px;
             height: 6px;
@@ -67,7 +72,7 @@
         opacity: 0.3;
         @media only screen and (max-width: $mobile) {
             display: none;
-          }
+        }
       
     }
 
@@ -198,6 +203,14 @@
     font-size: 13px;
     display: flex;
     justify-content: center;
+
+    @media only screen and (max-width: $mobile) {
+        .tick_container {
+            .svg-wrapper {
+                left: 2px
+            }
+        }
+    }
 
     
 }
@@ -459,13 +472,13 @@
 
         .laurel_number {
             position: absolute;
-            top: 7px;
+            top: 8px;
             left: 0;
             right: 0;
             text-align: center;
             z-index: 2;
             font-weight: 600;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.80);
+            text-shadow: 0 1px 6px rgba(0,0,0,0.70);
             font-size: 13px;
         }
     }
@@ -473,40 +486,116 @@
 
   .comp_wrapper {
       display: flex;
-      border-bottom: 1px solid rgba(white, 0.1);
+      border-bottom: 1px solid rgba(white, 0.07);
 
       .comp_image_wrapper {
           width: 90px;
           flex-grow: 0;
           flex-shrink: 0;
           img {
-            max-height: 108px;
+            height: 108px;
+            width: 90px;
           }
       }
 
       .comp_details {
-            padding: 20px;
+            padding: 18px 20px 0 20px;
             position: relative;
             flex-grow: 1;
 
-            .comp_firstLine {}
+            .comp_firstLine {
+                font-size: 14px;
+                font-weight: 600;
+                margin: 0 0 2px 0;
 
-            .comp_secondLine {}
+                .comp_active_label {
+                    background: #40DC9D;
+                    color: white;
+                    font-size: 8px;
+                    font-weight: 550;
+                    padding: 3px 8px;
+                    border-radius: 20px;
+                    letter-spacing: 0.4px;
+                    margin: 0 0 0 7px ;
+                    position: relative;
+                    top: -2px;
+                }
+            }
+
+            .comp_secondLine {
+                font-size: 11px;
+                font-weight: 300;
+                opacity: 0.5;
+                margin: 0 0 12px 0;
+            }
     
             .scores_conatainer {
                 display: flex;
         
                 .single_score {
-                    .score_laurel {}
-                    .score_rank {}
-                    .score_description {}
+                    width: 100px;
+                    position: relative;
+
+                    .score_laurel_wrapper {
+                        width: 30px;
+                        height: 30px;
+                        position: relative;
+
+                        .score_laurel {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            opacity: 0.5;
+                        }
+
+                        .score_rank {
+                            position: absolute;
+                            width: 30px;
+                            text-align: center;
+                            font-size: 12px;
+                            font-weight: 600;
+                            top: 7px;
+                        }
+                        
+                        .rank_dashes {
+                            position: relative;
+                            top: -1px;
+                            opacity: 0.5;
+                        }
+
+                        &.winner {
+                            .score_laurel {
+                                opacity: 1;
+
+                                path {
+                                    fill: #F29E4A
+                                }
+                            }
+
+                            .score_rank {
+                               color: #F29E4A 
+                            }
+                        }
+
+                    }
+                    
+                    .score_description {
+                        display: block;
+                        position: absolute;
+                        top: 7px;
+                        left: 37px;
+                        font-size: 11px;
+                        font-weight: 300;
+                        white-space: nowrap;
+                    }
                 }
             }
 
             .comp_caret {
                 position: absolute;
                 right: 15px;
-                top: 50px;
+                top: 45px;
             }
       }
   }

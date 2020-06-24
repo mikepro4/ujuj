@@ -186,10 +186,10 @@ class Phone extends Component {
         
     }
 
-    renderGrid() {
+    renderGrid(array) {
         return( 
             <div className="img_grid">
-                {this.props.settings.files.map((file, i)=> {
+                {array.map((file, i)=> {
                     return (
                         <div 
                             className="img_wrapper" 
@@ -226,6 +226,10 @@ class Phone extends Component {
     </div>)
     }
 
+    renderReposts() {
+        return (this.renderGrid(this.props.settings.reposts))
+    }
+
     renderComps() {
         console.log(this.props.comps)
         return(
@@ -239,6 +243,12 @@ class Phone extends Component {
                             <div className="comp_details">
                                 <div className="comp_firstLine">
                                     {comp.firstLine} 
+
+                                    {i == 0 && (
+                                        <span className="comp_active_label">
+                                            ACTIVE
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="comp_secondLine">
                                     {comp.secondLine} 
@@ -246,19 +256,47 @@ class Phone extends Component {
 
                                 <div className="scores_conatainer">
                                     <div className="single_score">
-                                        <span className="score_laurel_wrapper">
-                                            <span className="score_laurel"><LaurelSmall/> </span>
-                                            <span className="score_rank">{comp.score1}</span>
-                                        </span>
-                                        <span className="score_description">2 posts</span>
+                                        <div 
+                                            className={classNames(
+                                                {"winner": comp.score1 == 1},
+                                                "score_laurel_wrapper"
+                                                )}
+                                        >
+                                            <div className="score_laurel"><LaurelSmall/> </div>
+                                            <div className="score_rank">
+                                                {comp.count1 == 0 ? (
+                                                        <span className="rank_dashes">--</span>
+                                                    ) : (
+                                                        <span>{comp.score1}</span>
+                                                )}
+                                                </div>
+                                        </div>
+                                        <div className="score_description">
+                                            {comp.count1} post{((comp.count1 > 1) || (comp.count1 == 0)) && "s"}
+                                        </div>
                                     </div>
 
                                     <div className="single_score">
-                                    <span className="score_laurel_wrapper">
-                                            <span className="score_laurel"><LaurelSmall/> </span>
-                                            <span className="score_rank">{comp.score1}</span>
-                                        </span>
-                                        <span className="score_description">3 superstars</span>
+                                        <div 
+                                            className={classNames(
+                                            {"winner": comp.score2 == 1},
+                                            "score_laurel_wrapper"
+                                            )}
+                                        >
+                                            <div className="score_laurel"><LaurelSmall/> </div>
+                                            <div className="score_rank">
+
+                                                {comp.count2 == 0 ? (
+                                                        <span className="rank_dashes">--</span>
+                                                    ) : (
+                                                        <span>{comp.score2}</span>
+                                                )}
+                                                
+                                                </div>
+                                        </div>
+                                        <div className="score_description">{
+                                            comp.count2} supervote{((comp.count2 > 1) || (comp.count2 == 0)) && "s"}
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -363,7 +401,7 @@ class Phone extends Component {
 
                                 <div className="stats_container">
                                     <div className="stats_value">23</div>
-                                    <div className="stats_label">SUPERSTARS</div>
+                                    <div className="stats_label">SUPERVOTES</div>
                                 </div>
                             </div>
                             <div 
@@ -421,8 +459,9 @@ class Phone extends Component {
                             
                         </div>
 
-                        {this.props.activeTab == 1 && this.renderGrid()}
+                        {this.props.activeTab == 1 && this.renderGrid(this.props.settings.files)}
                         {this.props.activeTab == 2 && this.renderComps()}
+                        {this.props.activeTab == 3 && this.renderReposts()}
                        
                         
                         <div className="test"></div>

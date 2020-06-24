@@ -29,6 +29,14 @@ class HomePage extends Component {
 				'/photos/img14.png',
 				'/photos/img15.png',
 				],
+			reposts: [
+				'/photos/repost1.png',
+				'/photos/repost2.png',
+				'/photos/repost3.png',
+				'/photos/repost4.png',
+				'/photos/repost5.png',
+				'/photos/repost6.png'
+			],
 			palette: null,
 			selected: "Light Vibrant",
 			avatar: '/photos/avatar.png',
@@ -42,13 +50,115 @@ class HomePage extends Component {
 			url: "youtube.com/dcdnt",
 			activeTab: 1,
 			comps: [
-			  {
-				  img: '/comps/comp1.png',
-				  firstLine: "Freestyle Fire",
-				  secondLine: "Dance battle",
-				  score1: 7,
-				  score2: 12
-			  }
+				{
+					img: '/comps/comp1.png',
+					firstLine: "Freestyle Fire",
+					secondLine: "Dance battle",
+					score1: 2,
+					score2: 12,
+					count1: 2,
+					count2: 3
+				},
+				{
+					img: '/comps/comp2.png',
+					firstLine: "Payback Pays",
+					secondLine: "R&B on the Fly",
+					score1: 1,
+					score2: 7,
+					count1: 1,
+					count2: 0
+				},
+				{
+					img: '/comps/comp3.png',
+					firstLine: "Belly Burners",
+					secondLine: "Fitness Challenge",
+					score1: 4,
+					score2: 1,
+					count1: 1,
+					count2: 3
+				},
+				{
+					img: '/comps/comp4.png',
+					firstLine: "Card Shark",
+					secondLine: "Mind Magic",
+					score1: 1,
+					score2: 10,
+					count1: 2,
+					count2: 5
+				},
+				{
+					img: '/comps/comp5.png',
+					firstLine: "3Run Tricking",
+					secondLine: "Prakour Obstacle Challenge",
+					score1: 3,
+					score2: 97,
+					count1: 1,
+					count2: 0
+				},
+				{
+					img: '/comps/comp6.png',
+					firstLine: "Original Chorus Belt",
+					secondLine: "Vocal Originals",
+					score1: 0,
+					score2: 7,
+					count1: 0,
+					count2: 2
+				},
+				{
+					img: '/comps/comp7.png',
+					firstLine: "Drop Me Baby",
+					secondLine: "Bedroom DJ",
+					score1: 1,
+					score2: 12,
+					count1: 1,
+					count2: 0
+				},
+				{
+					img: '/comps/comp8.png',
+					firstLine: "Use Your Illusion",
+					secondLine: "Mind Magic",
+					score1: 0,
+					score2: 7,
+					count1: 0,
+					count2: 1
+				},
+				{
+					img: '/comps/comp9.png',
+					firstLine: "Favorite Position",
+					secondLine: "Yoga Zone",
+					score1: 45,
+					score2: 12,
+					count1: 1,
+					count2: 0
+				},
+				{
+					img: '/comps/comp10.png',
+					firstLine: "Freestyle Fire",
+					secondLine: "Dance battle",
+					score1: 1,
+					score2: 12,
+					count1: 1,
+					count2: 0
+				},
+				{
+					img: '/comps/comp11.png',
+					firstLine: "Freestyle Fire",
+					secondLine: "Dance battle",
+					score1: 1,
+					score2: 12,
+					count1: 1,
+					count2: 0
+				},
+				{
+					img: '/comps/comp12.png',
+					firstLine: "Freestyle Fire",
+					secondLine: "Dance battle",
+					score1: 1,
+					score2: 12,
+					count1: 1,
+					count2: 0
+				}
+				
 			]
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -140,6 +250,13 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
+		this.updateGradient()
+		// setTimeout(() => {
+		// 	this.updateGradient()
+		// }, 2000)
+	}
+
+	updateGradient() {
 		let files = this.state.files.sort(() => Math.random() - 0.5)
 		// let files = this.state.files
 		Vibrant.from(files[0]).getPalette((err, palette) => {
