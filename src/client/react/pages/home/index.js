@@ -250,14 +250,15 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
-		this.updateGradient()
-		// setTimeout(() => {
-		// 	this.updateGradient()
-		// }, 2000)
+		let files = this.state.files.sort(() => Math.random() - 0.5)
+
+		this.updateGradient(files)
+		setTimeout(() => {
+			this.updateGradient(files)
+		}, 2000)
 	}
 
-	updateGradient() {
-		let files = this.state.files.sort(() => Math.random() - 0.5)
+	updateGradient(files) {
 		// let files = this.state.files
 		Vibrant.from(files[0]).getPalette((err, palette) => {
 			console.log(palette) 
